@@ -18,6 +18,7 @@ class Game extends React.Component {
             }],
             stepNumber: 0,
             xIsNext: true,
+            sortOrder: null
         };
     }
 
@@ -53,6 +54,12 @@ class Game extends React.Component {
         });
     }
 
+    handleSortClick() {
+        this.setState((prevState, props) => ({
+            sortOrder: prevState.sortOrder ? null : { display: "flex", flexDirection: "column-reverse" }
+        }));
+    }
+
     render() {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
@@ -86,7 +93,8 @@ class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
-                    <ol>{moves}</ol>
+                    <button onClick={() => this.handleSortClick()}>sort order</button>
+                    <ol style={this.state.sortOrder}>{moves}</ol>
                 </div>
             </div>
         );
