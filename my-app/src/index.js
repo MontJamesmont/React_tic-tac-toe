@@ -64,6 +64,10 @@ class Game extends React.Component {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares);
+        const emptySquares = current.squares.filter((square) => {
+            return !square;
+        });
+        console.log(current.squares, emptySquares)
         const moves = history.map((step, move) => {
             const desc = move ?
                 'Go to move #' + move + ' (' + step.position.col + ', ' + step.position.row + ')' :
@@ -83,7 +87,11 @@ class Game extends React.Component {
             winner.forEach((i) => {
                 winnersSquares[i] = { color: "blue" }
             });
-        } else {
+        }
+        else if (emptySquares.length == 0) {
+            status = 'Draw'
+        }
+        else {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         }
 
