@@ -29,10 +29,10 @@ class Game extends React.Component {
 
         const col = (i % Math.sqrt(squares.length)) + 1;
         const row = Math.floor(i / Math.sqrt(squares.length)) + 1;
-
         if (calculateWinner(squares) || squares[i]) {
             return;
         }
+
         squares[i] = this.state.xIsNext ? 'X' : 'O';
         this.setState({
             history: history.concat([{
@@ -77,8 +77,12 @@ class Game extends React.Component {
         });
 
         let status;
+        let winnersSquares = Array(9).fill(null);
         if (winner) {
-            status = 'Winner: ' + winner;
+            status = 'Winner: ' + current.squares[winner[0]];
+            winner.forEach((i) => {
+                winnersSquares[i] = { color: "blue" }
+            });
         } else {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         }
@@ -88,6 +92,7 @@ class Game extends React.Component {
                 <div className="game-board">
                     <Board
                         squares={current.squares}
+                        winners={winnersSquares}
                         onClick={(i) => this.handleClick(i)}
                     />
                 </div>
@@ -123,7 +128,7 @@ function calculateWinner(squares) {
     for (let i = 0; i < lines.length; i++) {
         const [a, b, c] = lines[i];
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-            return squares[a];
+            return lines[i];
         }
     }
     return null;
