@@ -8,7 +8,7 @@ export default class Board extends React.Component {
             <Square key={i}
                 value={this.props.squares[i]}
                 onClick={() => this.props.onClick(i)}
-                style={this.props.winners[i]}
+                winnerClass={this.props.winners[i]}
             />
         );
     }

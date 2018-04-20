@@ -49,3 +49,16 @@ ul {
 .game-info {
   margin-left: 20px;
 }
+
+.game-info .sortOrder {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.game-info .isCurrent {
+  font-weight: bold;
+}
+
+.winnersSquares {
+  color: blue;
+}
